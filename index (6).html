@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jonathan Tieken — AI GTM Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment:   #f4f0e8;
+  --parchment2:  #ede8dc;
+  --birch:       #faf8f3;
+  --moss:        #2e3d2f;
+  --moss-light:  #3d5140;
+  --lichen:      #7a8c6e;
+  --bark:        #5c4a35;
+  --stone:       #8a857c;
+  --iron:        #1e1e1c;
+  --smoke:       #c8c2b6;
+  --ember:       #a0622a;
+  --sans: 'Instrument Sans', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--birch);
+  color: var(--iron);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3.5rem;
+  background: rgba(250,248,243,0.9);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(94,74,52,0.1);
+  opacity: 0;
+  animation: fadeDown 0.9s 0.1s var(--ease-out) forwards;
+}
+.nav-wordmark {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--iron); text-decoration: none; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 2.8rem; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; color: var(--stone); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--iron); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 3.5rem 5rem;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-rings {
+  position: absolute; top: 50%; right: -5%;
+  width: 55vw; max-width: 700px;
+  transform: translateY(-50%);
+  opacity: 0.06;
+  fill: none; stroke: var(--bark); stroke-width: 1;
+}
+.hero-content {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  position: relative; z-index: 1;
+  max-width: 1100px;
+}
+.hero-left {
+  opacity: 0;
+  animation: fadeUp 1s 0.4s var(--ease-out) forwards;
+}
+.hero-tag {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1.6rem; font-weight: 500;
+}
+.hero-name {
+  font-size: clamp(3.2rem, 5.5vw, 5rem);
+  font-weight: 300; line-height: 1.05;
+  letter-spacing: -0.02em; margin-bottom: 1.6rem;
+  color: var(--iron);
+}
+.hero-name span { display: block; font-weight: 600; }
+.hero-sub {
+  font-size: 1rem; color: var(--stone); max-width: 420px;
+  line-height: 1.75; margin-bottom: 2.8rem; font-weight: 300;
+}
+.hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-block; padding: 0.9rem 2.2rem;
+  background: var(--iron); color: var(--birch);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  text-decoration: none; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--moss); }
+.btn-secondary {
+  display: inline-block; padding: 0.9rem 2.2rem;
+  border: 1px solid var(--smoke); color: var(--stone);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--iron); color: var(--iron); }
+
+.hero-right {
+  opacity: 0;
+  animation: fadeUp 1s 0.65s var(--ease-out) forwards;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+.hero-stat {
+  padding: 2rem 1.8rem;
+  border-top: 1px solid var(--smoke);
+  border-right: 1px solid var(--smoke);
+}
+.hero-stat:nth-child(2n) { border-right: none; }
+.hero-stat:nth-child(3), .hero-stat:nth-child(4) { border-top: 1px solid var(--smoke); }
+.hero-stat-num {
+  font-size: 2.6rem; font-weight: 300; line-height: 1;
+  color: var(--iron); margin-bottom: 0.4rem; letter-spacing: -0.03em;
+}
+.hero-stat-label { font-size: 0.72rem; color: var(--stone); letter-spacing: 0.04em; }
+
+/* ─── ABOUT ─── */
+.about {
+  background: var(--moss);
+  padding: 7rem 3.5rem;
+  position: relative; overflow: hidden;
+}
+.about::before {
+  content: '';
+  position: absolute; top: -40%; right: -15%;
+  width: 80%; padding-bottom: 80%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,140,110,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: start;
+  max-width: 1100px; position: relative; z-index: 1;
+}
+.about .section-label {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1.2rem; font-weight: 500;
+}
+.about h2 {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 300; line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--parchment);
+  margin-bottom: 2rem;
+}
+.about h2 em { font-style: italic; color: var(--lichen); }
+.about-body p {
+  font-size: 0.95rem; color: rgba(244,240,232,0.65);
+  line-height: 1.8; font-weight: 300; margin-bottom: 1.2rem;
+}
+.about-skills-label {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1.8rem; font-weight: 500;
+}
+.skill-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.85rem; color: rgba(244,240,232,0.7); font-weight: 300;
+}
+.skill-mark {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--lichen); flex-shrink: 0;
+}
+
+/* ─── SECTION COMMON ─── */
+.section-label {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1rem; font-weight: 500;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300; line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--iron);
+}
+.section-title em { font-style: italic; }
+
+/* ─── EXPERIENCE ─── */
+.experience {
+  padding: 7rem 3.5rem;
+  max-width: 1100px; margin: 0 auto;
+}
+.section-header { margin-bottom: 4rem; }
+.exp-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 2.5rem; padding: 2.5rem 0;
+  border-top: 1px solid var(--smoke);
+  opacity: 1;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.exp-item.animate-ready { opacity: 0; transform: translateY(16px); }
+.exp-item.visible { opacity: 1; transform: translateY(0); }
+.exp-co {
+  font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--iron); margin-bottom: 0.3rem;
+}
+.exp-date { font-size: 0.72rem; color: var(--stone); letter-spacing: 0.02em; }
+.exp-role {
+  font-size: 0.95rem; font-weight: 500; color: var(--iron);
+  margin-bottom: 0.7rem;
+}
+.exp-desc { font-size: 0.85rem; color: var(--stone); line-height: 1.7; font-weight: 300; }
+.exp-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.exp-pill {
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--smoke); color: var(--stone); font-weight: 500;
+}
+
+/* ─── WRITING ─── */
+.writing {
+  padding: 7rem 3.5rem;
+  background: var(--parchment);
+}
+.writing-inner { max-width: 1100px; margin: 0 auto; }
+.writing-intro {
+  font-size: 0.95rem; color: var(--stone); line-height: 1.8;
+  max-width: 520px; font-weight: 300; margin-top: 1.5rem;
+}
+.acts-nav {
+  display: flex; gap: 0; margin: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--smoke);
+}
+.act-tab {
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; color: var(--stone);
+  padding: 0.8rem 1.6rem; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; transition: all 0.2s;
+  background: none; border-top: none; border-left: none; border-right: none;
+  font-family: var(--sans);
+}
+.act-tab:hover { color: var(--iron); }
+.act-tab.active { color: var(--moss); border-bottom-color: var(--moss); }
+.articles-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--smoke);
+}
+.card {
+  background: var(--parchment2);
+  padding: 2.2rem 2rem;
+  cursor: pointer;
+  transition: background 0.25s;
+  position: relative; overflow: hidden;
+}
+.card:hover { background: var(--moss); }
+.card:hover .card-num  { color: rgba(244,240,232,0.15); }
+.card:hover .card-act  { color: var(--lichen); }
+.card:hover .card-title { color: var(--parchment); }
+.card:hover .card-blurb { color: rgba(244,240,232,0.55); }
+.card:hover .card-arrow { opacity: 1; color: var(--lichen); }
+.card-num {
+  font-size: 2.4rem; font-weight: 300; color: var(--smoke);
+  line-height: 1; margin-bottom: 1.2rem; letter-spacing: -0.03em;
+  transition: color 0.25s;
+}
+.card-act {
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 0.5rem; font-weight: 500;
+  transition: color 0.25s;
+}
+.card-title {
+  font-size: 0.95rem; font-weight: 500; color: var(--iron);
+  line-height: 1.3; margin-bottom: 0.9rem; transition: color 0.25s;
+}
+.card-blurb {
+  font-size: 0.8rem; color: var(--stone);
+  line-height: 1.65; font-weight: 300; transition: color 0.25s;
+}
+.card-arrow {
+  position: absolute; bottom: 1.6rem; right: 1.8rem;
+  font-size: 0.9rem; color: var(--stone);
+  opacity: 0; transition: opacity 0.25s;
+}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials {
+  padding: 7rem 3.5rem;
+  background: var(--birch);
+}
+.testimonials-inner { max-width: 1100px; margin: 0 auto; }
+.testimonials-intro {
+  font-size: 0.95rem; color: var(--stone); line-height: 1.8;
+  max-width: 520px; font-weight: 300; margin-top: 1.2rem; margin-bottom: 4rem;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--smoke);
+}
+.testimonial-card {
+  background: var(--birch);
+  padding: 2.5rem 2.2rem;
+  display: flex; flex-direction: column; gap: 1.8rem;
+  transition: background 0.25s;
+}
+.testimonial-card:hover { background: var(--parchment); }
+.testimonial-quote {
+  font-size: 0.9rem; color: var(--iron);
+  line-height: 1.8; font-weight: 300;
+  font-style: italic;
+  flex: 1;
+  position: relative;
+}
+.testimonial-quote::before {
+  content: '\201C';
+  font-size: 3rem; line-height: 0.6;
+  color: var(--lichen); font-style: normal;
+  display: block; margin-bottom: 0.8rem;
+  font-weight: 300;
+}
+.testimonial-attribution {
+  border-top: 1px solid var(--smoke);
+  padding-top: 1.2rem;
+}
+.testimonial-name {
+  font-size: 0.8rem; font-weight: 600; color: var(--iron);
+  margin-bottom: 0.2rem; letter-spacing: 0.02em;
+}
+.testimonial-role {
+  font-size: 0.72rem; color: var(--stone); font-weight: 300;
+  line-height: 1.4;
+}
+.testimonial-source {
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lichen); font-weight: 500; margin-top: 0.4rem;
+}
+
+/* ─── CONTACT ─── */
+.contact {
+  padding: 7rem 3.5rem;
+  background: var(--iron);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: start;
+}
+.contact .section-label { color: rgba(122,140,110,0.9); }
+.contact h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300; line-height: 1.2;
+  color: var(--parchment); margin-bottom: 1.5rem;
+}
+.contact h2 em { font-style: italic; color: var(--lichen); }
+.contact-intro {
+  font-size: 0.9rem; color: rgba(244,240,232,0.55);
+  line-height: 1.8; font-weight: 300; margin-bottom: 2.5rem;
+  max-width: 400px;
+}
+.contact-items { display: flex; flex-direction: column; gap: 0; }
+.contact-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  text-decoration: none; transition: border-color 0.2s;
+}
+.contact-item:hover { border-bottom-color: rgba(122,140,110,0.4); }
+.contact-item:hover .contact-arrow-icon { color: var(--lichen); }
+.contact-type {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lichen); font-weight: 500; margin-bottom: 0.2rem;
+}
+.contact-val { font-size: 0.88rem; color: rgba(244,240,232,0.7); font-weight: 300; }
+.contact-arrow-icon { font-size: 1rem; color: rgba(244,240,232,0.2); transition: color 0.2s; }
+.pullquote {
+  font-size: 1.15rem; font-style: italic; font-weight: 300;
+  color: rgba(244,240,232,0.6); line-height: 1.7;
+  border-left: 2px solid var(--lichen); padding-left: 1.8rem;
+  margin-bottom: 1rem;
+}
+.pullquote-attr {
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(122,140,110,0.6); padding-left: 1.8rem; font-weight: 500;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 1.5rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--iron);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-name {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244,240,232,0.3); font-weight: 500;
+}
+.footer-loc { font-size: 0.72rem; color: rgba(244,240,232,0.2); }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(20,18,16,0.8); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--birch);
+  max-width: 680px; width: 100%;
+  max-height: 85vh; overflow-y: auto;
+  padding: 3.5rem 3rem;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.35s var(--ease-out);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 1.5rem; right: 1.8rem;
+  background: none; border: none; cursor: pointer;
+  font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; font-family: var(--sans);
+}
+.modal-num { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lichen); margin-bottom: 0.6rem; font-weight: 500; }
+.modal-title { font-size: 1.8rem; font-weight: 300; color: var(--iron); margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+.modal-act { font-size: 0.72rem; color: var(--stone); margin-bottom: 2rem; font-weight: 300; }
+.modal-claim {
+  font-size: 1rem; font-style: italic; color: var(--bark);
+  line-height: 1.7; border-left: 2px solid var(--lichen);
+  padding: 0.8rem 1.5rem; margin-bottom: 2rem;
+  background: var(--parchment);
+}
+.modal-body { font-size: 0.88rem; color: var(--stone); line-height: 1.85; font-weight: 300; }
+.modal-body p { margin-bottom: 1rem; }
+.modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--smoke); margin: 1.8rem 0; }
+.modal-stat { background: var(--parchment); padding: 1.2rem 1rem; text-align: center; }
+.modal-stat-num { font-size: 1.8rem; font-weight: 300; color: var(--moss); line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+.modal-stat-label { font-size: 0.72rem; color: var(--stone); line-height: 1.5; }
+.modal-reframe { background: var(--parchment); border-left: 2px solid var(--lichen); padding: 1rem 1.2rem; margin-bottom: 1rem; font-size: 0.88rem; color: var(--stone); line-height: 1.8; }
+.modal-reframe-label { display: block; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lichen); font-weight: 600; margin-bottom: 0.4rem; }
+.modal-opener { background: var(--sand, #ede8dc); border: 1px solid var(--smoke); padding: 1rem 1.2rem; font-size: 0.85rem; color: var(--stone); line-height: 1.75; font-style: italic; }
+.modal-opener-label { display: block; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bark); font-weight: 600; margin-bottom: 0.4rem; font-style: normal; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+.reveal {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+}
+.reveal.animate-ready { opacity: 0; transform: translateY(20px); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+/* ─── PROJECTS ─── */
+.projects {
+  padding: 7rem 3.5rem;
+  background: var(--moss);
+}
+.projects-inner { max-width: 1100px; margin: 0 auto; }
+.projects .section-label { color: var(--lichen); }
+.projects .section-title { color: var(--parchment); }
+.projects .section-title em { color: var(--lichen); }
+.projects-intro {
+  font-size: 0.95rem; color: rgba(244,240,232,0.55);
+  line-height: 1.8; max-width: 520px; font-weight: 300; margin-top: 1.2rem; margin-bottom: 4rem;
+}
+.projects-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: rgba(255,255,255,0.1);
+}
+.project-card {
+  background: var(--moss-light);
+  padding: 3rem 2.5rem;
+  cursor: pointer;
+  transition: background 0.25s;
+  position: relative;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.project-card:hover { background: rgba(61,81,64,0.9); }
+.project-card:hover .project-arrow { opacity: 1; }
+.project-tag {
+  font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--lichen); font-weight: 600;
+}
+.project-num {
+  font-size: 3rem; font-weight: 300; line-height: 1;
+  color: rgba(255,255,255,0.08); letter-spacing: -0.03em;
+}
+.project-title {
+  font-size: 1.3rem; font-weight: 500; color: var(--parchment);
+  line-height: 1.25;
+}
+.project-desc {
+  font-size: 0.85rem; color: rgba(244,240,232,0.55);
+  line-height: 1.75; font-weight: 300; max-width: 380px;
+}
+.project-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.project-pill {
+  font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(122,140,110,0.35); color: var(--lichen); font-weight: 500;
+}
+.project-arrow {
+  position: absolute; bottom: 2rem; right: 2rem;
+  font-size: 1rem; color: var(--lichen);
+  opacity: 0; transition: opacity 0.25s;
+}
+
+/* ─── PROJECT MODAL ─── */
+.proj-modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(20,18,16,0.88); backdrop-filter: blur(10px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  overflow-y: auto;
+}
+.proj-modal-overlay.open { opacity: 1; pointer-events: all; }
+.proj-modal {
+  background: var(--birch);
+  max-width: 820px; width: 100%;
+  margin: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.35s var(--ease-out);
+}
+.proj-modal-overlay.open .proj-modal { transform: translateY(0); }
+.proj-modal-close {
+  position: fixed; top: 2rem; right: 2.5rem;
+  background: var(--iron); border: none; cursor: pointer;
+  font-size: 0.72rem; color: var(--parchment);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--sans); font-weight: 500;
+  padding: 0.6rem 1.2rem; z-index: 10;
+}
+#projModalContent { width: 100%; }
+  nav { padding: 1.2rem 1.8rem; }
+  .hero { padding: 100px 1.8rem 3.5rem; }
+  .hero-content, .about-inner, .contact { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .experience, .writing, .testimonials { padding: 5rem 1.8rem; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .articles-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  footer { padding: 1.5rem 1.8rem; }
+}
+@media (max-width: 600px) {
+  .articles-grid, .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .hero-name { font-size: 2.8rem; }
+  .modal { padding: 2.5rem 1.5rem; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-wordmark">Jonathan Tieken</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-rings" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="350" cy="350" r="100"/>
+    <circle cx="350" cy="350" r="170"/>
+    <circle cx="350" cy="350" r="240"/>
+    <circle cx="350" cy="350" r="310"/>
+    <circle cx="350" cy="350" r="340"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag">AI GTM Strategist &amp; Thought Leader</div>
+      <h1 class="hero-name">
+        Jonathan
+        <span>Tieken</span>
+      </h1>
+      <p class="hero-sub">15+ years building the teams, frameworks, and field motions that move enterprises from AI experimentation to measurable adoption.</p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn-primary">View Experience</a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Years Enterprise GTM</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">$50M+</div>
+        <div class="hero-stat-label">Revenue Influenced</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">AI Products Taken to Market</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">9</div>
+        <div class="hero-stat-label">Part AI Enablement Series</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="section-label">About</div>
+      <h2>Translating AI potential<br>into <em>measurable impact</em></h2>
+      <div class="about-body">
+        <p>My career has been defined by one consistent challenge: taking complex, emerging technology and translating it into something field teams can sell, buyers can trust, and organizations can adopt at scale.</p>
+        <p>Today that work centers on agentic AI — building the frameworks, teams, and GTM motions that move enterprises from experimentation to measurable adoption. I believe the gap between AI potential and AI impact is almost never technical. It's organizational.</p>
+        <p>I also write and speak about what it means to work effectively in an AI-accelerated world — not as an AI expert, but as someone who has watched what actually changes when it enters a business.</p>
+      </div>
+    </div>
+    <div>
+      <div class="about-skills-label">Core Competencies</div>
+      <div class="skill-row"><span>GTM Strategy &amp; Execution</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Enterprise AI Strategy</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Solutions Architecture</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>LLM &amp; Agentic AI Deployment</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>AI Adoption Frameworks</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Pre-Sales Technical Leadership</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Field Activation &amp; Enablement</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Strategic Partnerships</span><span class="skill-mark"></span></div>
+      <div class="skill-row"><span>Vertical: FS · Retail · Healthcare</span><span class="skill-mark"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience reveal" id="experience">
+  <div class="section-header">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">A career built at the <em>frontier</em></h2>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-co">Superhuman</div>
+        <div class="exp-date">Aug 2025 — Present</div>
+      </div>
+      <div>
+        <div class="exp-role">Senior Manager, Sales Engineering</div>
+        <div class="exp-desc">Founding SE Manager for Superhuman Go, the company's agentic AI productivity platform — building the team, GTM motion, and value architecture post-acquisition at a critical inflection point.</div>
+        <div class="exp-pills">
+          <span class="exp-pill">Agentic AI</span><span class="exp-pill">MCP Automations</span><span class="exp-pill">SE Team Build</span><span class="exp-pill">AI Governance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-co">Templafy</div>
+        <div class="exp-date">Dec 2023 — May 2025</div>
+      </div>
+      <div>
+        <div class="exp-role">Global Director of Solutions (GTM)</div>
+        <div class="exp-desc">Led global Solutions Architect and Consulting teams reporting to CRO, accountable for global quota and full P&amp;L. Drove $2M ARR in first 90 days and established the Solutions function as a core revenue driver.</div>
+        <div class="exp-pills">
+          <span class="exp-pill">CRO Reporting</span><span class="exp-pill">Global Quota</span><span class="exp-pill">$2M ARR / 90 Days</span><span class="exp-pill">AI Content Strategy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-co">Veeva Systems</div>
+        <div class="exp-date">Jan 2020 — Dec 2023</div>
+      </div>
+      <div>
+        <div class="exp-role">Director, Solutions Engineering — Commercial</div>
+        <div class="exp-desc">Led a 12-person SE team across the Commercial Cloud portfolio, supporting $45M+ in pipeline across Life Sciences. Built the AI/ML value narrative for next-generation CRM products.</div>
+        <div class="exp-pills">
+          <span class="exp-pill">Life Sciences</span><span class="exp-pill">$45M Pipeline</span><span class="exp-pill">12-Person SE Team</span><span class="exp-pill">AI/ML Narrative</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-co">Earlier Career</div>
+        <div class="exp-date">2008 — 2020</div>
+      </div>
+      <div>
+        <div class="exp-role">Sales Engineering &amp; GTM Leadership</div>
+        <div class="exp-desc">12 years across enterprise software companies including Medidata Solutions, OpenText, and consulting roles. Managed mission-critical clinical trial platforms and global accounts with FDA/HIPAA compliance.</div>
+        <div class="exp-pills">
+          <span class="exp-pill">Medidata</span><span class="exp-pill">OpenText</span><span class="exp-pill">FDA · HIPAA</span><span class="exp-pill">Multi-M ARR</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WRITING -->
+<section class="writing reveal" id="writing">
+  <div class="writing-inner">
+    <div class="section-label">AI Enablement Series</div>
+    <h2 class="section-title">Frameworks for an <em>AI-accelerated</em> world</h2>
+    <p class="writing-intro">A 9-part series for technical and non-technical professionals alike — not to make people AI experts, but to give them a confident, grounded, practical way to think about where we are and what to do about it.</p>
+
+    <div class="acts-nav">
+      <button class="act-tab active" data-act="all">All</button>
+      <button class="act-tab" data-act="0">Series Opener</button>
+      <button class="act-tab" data-act="1">Act I — Identity Reset</button>
+      <button class="act-tab" data-act="2">Act II — Operating Principles</button>
+      <button class="act-tab" data-act="3">Act III — The Forward View</button>
+    </div>
+
+    <div class="articles-grid" id="articlesGrid"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects reveal" id="projects">
+  <div class="projects-inner">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">Work I've <em>built</em></h2>
+    <p class="projects-intro">Original frameworks, enablement systems, and operating models — built in the field and designed to transfer.</p>
+
+    <div class="projects-grid">
+
+      <div class="project-card" onclick="openProjectModal('enablement')">
+        <div class="project-num">01</div>
+        <div class="project-tag">Thought Leadership · Enablement</div>
+        <div class="project-title">AI Enablement Series</div>
+        <div class="project-desc">A 9-part framework for technical and non-technical professionals — three acts moving from Identity Reset to Operating Principles to the Forward View. Built for in-person enablement sessions and designed to create lasting behavior change.</div>
+        <div class="project-pills">
+          <span class="project-pill">9 Sessions</span>
+          <span class="project-pill">3 Acts</span>
+          <span class="project-pill">Field Tested</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card" onclick="openProjectModal('seos')">
+        <div class="project-num">02</div>
+        <div class="project-tag">Systems Design · GTM Operations</div>
+        <div class="project-title">AI-Native SE Operating System</div>
+        <div class="project-desc">A connected three-layer architecture — knowledge base, AI skill library, and delivery layer — designed to let an SE team produce bespoke, high-quality work at scale without sacrificing the judgment that makes SE valuable.</div>
+        <div class="project-pills">
+          <span class="project-pill">3-Layer Architecture</span>
+          <span class="project-pill">~20 AI Skills</span>
+          <span class="project-pill">Full Deal Cycle</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What others <em>say</em></h2>
+    <p class="testimonials-intro">From direct reports, cross-functional peers, and leaders who've worked alongside me — across companies and contexts.</p>
+
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          If no one has told you this recently, Jonathan is one of the best managers — top 3 for sure — I've ever had. He very clearly understands my level of development and is very effective at helping me grow literally every day, every deal, every interaction. The way I work now has evolved tremendously since before he became my manager. As a human and employee, I feel very seen and supported.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Katie Kuo</div>
+          <div class="testimonial-role">Sales Engineer, Superhuman</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          Jonathan has been a strong thought leader and people leader during a particularly turbulent period. When our team faced uncertainty about Agentic AI, Jonathan taught the SE team on the AI productivity problem and where Superhuman stands. His work developing the AI Maturity Spectrum Discovery enablement session was especially impactful — it laid the foundation for my first Superhuman calls and demos, helping me understand where the customer stands with AI.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Dariia Yahova</div>
+          <div class="testimonial-role">Sales Engineer, Superhuman</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          Working with Jonathan has genuinely been one of the best parts of my role. From day one, it was clear he brings a strong understanding of how SaaS companies grow and a talent for leading teams to execute go-to-market strategies with clarity and confidence. He leads with empathy, focus, and a real passion for helping others succeed. Any team would be lucky to have him.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Burak Culha</div>
+          <div class="testimonial-role">Solutions Consultant, Templafy</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          I had the privilege of working with Jonathan at Templafy, and it's hard to overstate the impact he's had — not just on the business, but on everyone around him. He brought the whole solutions team together at Templafy, which is now the backbone of our organization. He's the kind of person who lights up a room, not just with his energy, but with his curiosity, empathy, and instinct to connect.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Aayush Aggarwal</div>
+          <div class="testimonial-role">Senior Solutions Consultant, Templafy</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          I had the pleasure of working with Jonathan for the past two years at Templafy. Professionally, Jonathan is a standout leader. He knows how to build and develop high-performing teams from the ground up and has a real talent for turning complex or technical topics into something clear and actionable. He's someone who naturally rallies teams and builds connection across functions.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Madison Hilali-Feinberg</div>
+          <div class="testimonial-role">GTM, Templafy</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          Jonathan is an excellent leader. While he didn't manage me directly, I learned an incredible amount in my time working with him. From a solutions and product perspective, he provided great value in leading initiatives, thought leadership, and collaboration which drove growth in our commercial org. Perhaps even greater is his skill to make you feel like your problem is never too big, nor too small — but rather an issue that can be tackled methodically with his support.
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Massimiliano Cagliesi-Cingolani</div>
+          <div class="testimonial-role">GTM, Cursor</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div>
+    <div class="section-label">Contact</div>
+    <h2>Let's build <em>something</em></h2>
+    <p class="contact-intro">Whether you're thinking about AI enablement programs, GTM strategy, speaking engagements, or just a conversation worth having — I'd love to connect.</p>
+    <div class="contact-items">
+      <a href="mailto:jtieken@gmail.com" class="contact-item">
+        <div><div class="contact-type">Email</div><div class="contact-val">jtieken@gmail.com</div></div>
+        <span class="contact-arrow-icon">→</span>
+      </a>
+      <a href="tel:5125061212" class="contact-item">
+        <div><div class="contact-type">Phone</div><div class="contact-val">512-506-1212</div></div>
+        <span class="contact-arrow-icon">→</span>
+      </a>
+      <a href="https://linkedin.com/in/jonathan-tieken" target="_blank" class="contact-item">
+        <div><div class="contact-type">LinkedIn</div><div class="contact-val">linkedin.com/in/jonathan-tieken</div></div>
+        <span class="contact-arrow-icon">→</span>
+      </a>
+    </div>
+  </div>
+  <div>
+    <div class="pullquote">"The people winning right now aren't the most technically fluent. They're the most curious and the least afraid of feeling like a beginner."</div>
+    <div class="pullquote-attr">— From "Proficiency is Impossible," AI Enablement Series</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Jonathan Tieken</span>
+  <span class="footer-loc">Weston, Connecticut</span>
+</footer>
+
+<!-- PROJECT MODAL -->
+<div class="proj-modal-overlay" id="projModalOverlay">
+  <div class="proj-modal">
+    <button class="proj-modal-close" id="projModalClose">Close ✕</button>
+    <div id="projModalContent"></div>
+  </div>
+</div>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">Close ✕</button>
+    <div id="modalInner"></div>
+  </div>
+</div>
+
+<script>
+const articles = [
+  { num:"01", act:"Series Opener", actGroup:"0",
+    title:"Proficiency is Relatively Impossible",
+    blurb:"The idea of 'knowing AI' is not a destination you can reach. The right posture isn't expertise — it's proactive curiosity combined with a willingness to stay in motion.",
+    claim:"\"The idea of 'knowing AI' is not a destination you can reach. The right posture isn't expertise — it's proactive curiosity combined with a willingness to stay in motion.\"",
+    stats:[{n:"300+",l:"Large language models available — and growing weekly"},{n:"90%",l:"of workers report feeling overwhelmed by the number of software tools they use"},{n:"54%",l:"of employees feel they are falling behind their peers in AI — even while using it daily"}],
+    reframe:"Proficiency is the wrong goal. What you want is <em>direction</em> — a heading toward engagement, experimentation, and comfort with not-knowing. The people winning right now aren't the most technically fluent. They're the most curious and the least afraid of feeling like a beginner.",
+    opener:"Show of hands: \"How many of you feel genuinely confident about where AI is going?\" Then: \"How many feel a little behind?\" The second hand goes up more. That's the entry point." },
+
+  { num:"02", act:"Act I — Identity Reset", actGroup:"1",
+    title:"EQ Over IQ",
+    blurb:"AI has automated the IQ arms race. What remains — and accelerates in value — is everything AI cannot replicate: empathy, trust, connection, judgment.",
+    claim:"\"AI has automated the IQ arms race. What remains — and accelerates in value — is everything AI cannot replicate: empathy, trust, connection, judgment. The skills that once felt soft are now the hardest differentiators.\"",
+    stats:[{n:"80%",l:"of consumers prefer interacting with people over machines when it matters"},{n:"85%",l:"sales growth advantage for companies that score high on emotional connection (Deloitte)"},{n:"71%",l:"of employers now rank EQ among their top desired skills — above technical ability"}],
+    reframe:"In a world where your AI handles the analysis, your value is in knowing what questions to ask, who to call, and how to make someone feel heard. People still want to buy from people — and that isn't changing.",
+    opener:"\"Think about the best colleague you've ever worked with. What made them great?\" The answers almost never lead with technical knowledge. That's the lesson." },
+
+  { num:"03", act:"Act I — Identity Reset", actGroup:"1",
+    title:"Becoming a Team Lead",
+    blurb:"Nearly everyone in a professional role will be responsible for managing agents — directing their work, checking their output, and knowing when to step in.",
+    claim:"\"Nearly everyone in a professional role will be responsible for managing agents — directing their work, checking their output, adjusting their behavior, and knowing when to step in. Managing agents is the new management skill.\"",
+    stats:[{n:"79%",l:"of organizations report some level of agentic AI adoption — right now, today"},{n:"96%",l:"are planning to expand their use of AI agents in 2025–2026"},{n:"46%",l:"CAGR for the AI agent market through 2030 — the fastest growing category in enterprise tech"}],
+    reframe:"Managing agents is not a technical skill — it's a leadership skill. You don't need to understand how they work. You need to know how to direct, calibrate, and review them. The people who thrive next aren't the ones who understand the model. They're the ones who know how to run the team.",
+    opener:"\"Raise your hand if you've ever managed someone who worked faster than you could review their output.\" That's agent management. The question isn't whether you'll do it — it's whether you'll be good at it." },
+
+  { num:"04", act:"Act I — Identity Reset", actGroup:"1",
+    title:"Architects, Not Engineers",
+    blurb:"You don't need to understand how to build the thing. You need to understand what to build, why it matters, and whether the output is trustworthy.",
+    claim:"\"You don't need to understand how to build the thing. You need to understand what to build, why it matters, and whether the output is trustworthy. That's the architect's mindset — and it's the most valuable posture you can take right now.\"",
+    stats:[{n:"44%",l:"of all work tasks could be augmented or automated by AI within the next 5 years (McKinsey)"},{n:"92%",l:"of executives say they expect to use more AI-generated content — but only 10% trust it without human review"},{n:"3×",l:"more productive: teams that use AI to prototype ideas before building them (MIT, 2024)"}],
+    reframe:"The engineer asks \"how do I build this?\" The architect asks \"what should exist here, and why?\" AI is an extraordinary engineer. It is not yet a trustworthy architect. That gap is your career.",
+    opener:"\"What does it mean to add value in a world where AI can do the work?\" The answer starts with thinking clearly about what the work is actually for." },
+
+  { num:"05", act:"Act II — Operating Principles", actGroup:"2",
+    title:"The Third Mind",
+    blurb:"When a human and an AI work together with genuine intention, the output is not the sum of two inputs — it's something neither could have produced independently.",
+    claim:"\"When a human and an AI work together with genuine intention, the output is not the sum of two inputs — it's something neither could have produced independently. That emergent quality is the third mind.\"",
+    stats:[{n:"106",l:"studies confirm human-AI collaboration outperforms either working alone"},{n:"3×",l:"accuracy improvement when humans review and refine AI output vs. accepting it directly"},{n:"9.2%",l:"AI hallucination rate in professional contexts — invisible without human review"}],
+    reframe:"Human review is not a safety net — it's the mechanism through which the third mind forms. When you skip review, you're not saving time. You're opting out of the collaboration entirely.",
+    opener:"\"Has anyone here ever had an AI give you a confident answer that was completely wrong?\" Every hand goes up. That's where you start." },
+
+  { num:"06", act:"Act II — Operating Principles", actGroup:"2",
+    title:"It's Not About How You Prompt",
+    blurb:"Prompt engineering is the least interesting skill in the AI era. What actually matters is the relationship you build with your tools over time.",
+    claim:"\"Prompt engineering is the least interesting skill in the AI era. What actually matters is the relationship you build with your tools over time — the context, the history, the intentional patterns of engagement.\"",
+    stats:[{n:"78%",l:"of AI power users spend more time reviewing and refining output than writing the initial prompt"},{n:"4×",l:"better output quality when users provide rich context vs. a single-shot instruction"},{n:"15 min",l:"the recommended weekly agent check-in — treat it like a 1:1 with a direct report"}],
+    reframe:"Stop optimizing individual prompts. Start investing in ongoing context, consistent check-ins, and longer-horizon tasks. Your AI doesn't need a perfect question — it needs a good working relationship.",
+    opener:"How many of you have gotten a response from AI that felt completely off? Now — when that happened, how many of you tried rewriting the prompt? Here's the thing: the prompt wasn't the problem." },
+
+  { num:"07", act:"Act II — Operating Principles", actGroup:"2",
+    title:"Context Is King",
+    blurb:"The quality of what AI gives you is determined almost entirely by the quality of what you give it. Prompt engineering is the wrong obsession. Context architecture is the right one.",
+    claim:"\"The quality of what AI gives you is determined almost entirely by the quality of what you give it. Every gap in your context is a gap in your output — invisible until it matters most. Prompt engineering is the wrong obsession. Context architecture is the right one.\"",
+    stats:[{n:"4×",l:"output quality improvement when users provide structured context vs. open-ended prompts"},{n:"83%",l:"of AI rework traces back to context gaps — not prompt syntax errors"},{n:"5 min",l:"context investment that eliminates an average of 40 minutes of revision cycles per deliverable"}],
+    reframe:"Most people treat context as setup. It's actually architecture. When you give an AI model rich, structured context — your role, your audience, your constraints, your preferences — you're not warming it up. You're configuring a collaborator. <em>Context is not the thing you do before the real work. Context is the real work.</em>",
+    opener:"\"How many of you have gotten a response from AI that felt completely off?\" The AI didn't know enough about you to help you well. That's a context problem, not a prompt problem." },
+
+  { num:"08", act:"Act III — The Forward View", actGroup:"3",
+    title:"Beyond Docs and Decks",
+    blurb:"The document era is ending. Not because documents don't matter — but because documents are becoming the output of something richer, more dynamic, and far more connected to the actual work.",
+    claim:"\"The document era is ending. Not because documents don't matter — but because documents are becoming the output of something richer, more dynamic, and far more connected to the actual work.\"",
+    stats:[{n:"68%",l:"of knowledge workers say they spend more time reformatting and moving data than actually analyzing it"},{n:"$2.5T",l:"estimated annual value lost globally to unstructured, inaccessible organizational knowledge"},{n:"10×",l:"faster insight generation when AI can access structured data vs. reformatted documents"}],
+    reframe:"The deck is not the destination — it's the artifact of a thinking process. As AI increasingly handles the artifact, your value moves upstream to the thinking, the structure, and the decisions that shape what gets produced.",
+    opener:"\"What would it mean if every insight your team produced was instantly available to every AI that needed it?\" That question unlocks a completely different way of thinking about knowledge work." },
+
+  { num:"09", act:"Act III — The Forward View", actGroup:"3",
+    title:"Productive Play is Paramount",
+    blurb:"The teams advancing fastest in AI are not the ones with the biggest budgets or the most technical talent. They are the ones that gave themselves permission to experiment.",
+    claim:"\"The teams advancing fastest in AI are not the ones with the biggest budgets or the most technical talent. They are the ones that gave themselves permission to experiment, to be curious, to play — and treated that play as work.\"",
+    stats:[{n:"40%",l:"more breakthrough ideas generated by teams that dedicate structured time to low-stakes AI experimentation"},{n:"72%",l:"of top AI users in organizations are self-taught — they learned by playing, not by training"},{n:"3 hrs",l:"average weekly time the most AI-fluent professionals spend in unstructured exploration of tools"}],
+    reframe:"The organizations that build serious AI capability are the ones that made it safe to play. That means protected time, low-stakes environments, and the explicit message that <em>exploration is not a distraction from the work — it is the work.</em>",
+    opener:"\"What's something you've always wanted to try with AI but didn't have 'permission' to?\" Almost everyone has an answer. The session is about giving them that permission — officially." }
+];
+
+function renderCards(filter) {
+  const grid = document.getElementById('articlesGrid');
+  grid.innerHTML = '';
+  articles.filter(a => filter === 'all' || a.actGroup === filter).forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-num">${a.num}</div>
+      <div class="card-act">${a.act}</div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-blurb">${a.blurb}</div>
+      <div class="card-arrow">→</div>
+    `;
+    card.addEventListener('click', () => openModal(a));
+    grid.appendChild(card);
+  });
+}
+
+function openModal(a) {
+  const inner = document.getElementById('modalInner');
+  const statsHtml = a.stats ? `<div class="modal-stats">${a.stats.map(s => `<div class="modal-stat"><div class="modal-stat-num">${s.n}</div><div class="modal-stat-label">${s.l}</div></div>`).join('')}</div>` : '';
+  const reframeHtml = a.reframe ? `<div class="modal-reframe"><span class="modal-reframe-label">The Reframe</span>${a.reframe}</div>` : '';
+  const openerHtml = a.opener ? `<div class="modal-opener"><span class="modal-opener-label">Session Opener</span>${a.opener}</div>` : '';
+  inner.innerHTML = `
+    <div class="modal-num">${a.num} — ${a.act}</div>
+    <div class="modal-title">${a.title}</div>
+    <div class="modal-claim">${a.claim}</div>
+    ${statsHtml}
+    ${reframeHtml}
+    ${openerHtml}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+document.querySelectorAll('.act-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.act-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderCards(tab.dataset.act);
+  });
+});
+
+renderCards('all');
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectors('.reveal').forEach(el => {
+  el.classList.add('animate-ready');
+  io.observe(el);
+});
+document.querySelectorAll('.exp-item').forEach(el => {
+  el.classList.add('animate-ready');
+  io.observe(el);
+});
+
+// ─── PROJECT MODAL ───
+const projContent = {
+  enablement: `
+    <div style="padding:3.5rem 3rem">
+      <div style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.8rem">AI Enablement Series</div>
+      <div style="font-size:2rem;font-weight:300;color:#1e1e1c;letter-spacing:-0.01em;margin-bottom:0.5rem">Frameworks for an <em>AI-accelerated</em> world</div>
+      <div style="font-size:0.9rem;color:#8a857c;line-height:1.8;max-width:600px;margin-bottom:3rem">A 9-part series designed to give technical and non-technical professionals a confident, grounded, practical way to think about where we are — and what to do about it. Built for in-person enablement sessions across three acts.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#c8c2b6;margin-bottom:2.5rem">
+        <div style="background:#f4f0e8;padding:1.5rem;text-align:center"><div style="font-size:2rem;font-weight:300;color:#2e3d2f;letter-spacing:-0.02em">9</div><div style="font-size:0.72rem;color:#8a857c;margin-top:0.3rem">Sessions</div></div>
+        <div style="background:#f4f0e8;padding:1.5rem;text-align:center"><div style="font-size:2rem;font-weight:300;color:#2e3d2f;letter-spacing:-0.02em">3</div><div style="font-size:0.72rem;color:#8a857c;margin-top:0.3rem">Acts</div></div>
+        <div style="background:#f4f0e8;padding:1.5rem;text-align:center"><div style="font-size:2rem;font-weight:300;color:#2e3d2f;letter-spacing:-0.02em">100s</div><div style="font-size:0.72rem;color:#8a857c;margin-top:0.3rem">Professionals Reached</div></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1px;background:#c8c2b6;margin-bottom:2.5rem">
+        <div style="background:#faf8f3;padding:1.2rem 1.5rem;display:flex;align-items:baseline;gap:1.5rem">
+          <span style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a8c6e;font-weight:600;white-space:nowrap;min-width:80px">Series Opener</span>
+          <span style="font-size:0.9rem;color:#1e1e1c;font-weight:500">01 — Proficiency is Relatively Impossible</span>
+        </div>
+        <div style="background:#faf8f3;padding:0.6rem 1.5rem 0.6rem 2.5rem"><span style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#8a857c;font-weight:600">Act I — Identity Reset</span></div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">02 — EQ Over IQ</div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">03 — Becoming a Team Lead</div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">04 — Architects, Not Engineers</div>
+        <div style="background:#faf8f3;padding:0.6rem 1.5rem 0.6rem 2.5rem"><span style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#8a857c;font-weight:600">Act II — Operating Principles</span></div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">05 — The Third Mind</div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">06 — It's Not About How You Prompt</div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">07 — Context Is King</div>
+        <div style="background:#faf8f3;padding:0.6rem 1.5rem 0.6rem 2.5rem"><span style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#8a857c;font-weight:600">Act III — The Forward View</span></div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">08 — Beyond Docs and Decks</div>
+        <div style="background:#faf8f3;padding:0.9rem 1.5rem 0.9rem 3rem;font-size:0.85rem;color:#8a857c">09 — Productive Play is Paramount</div>
+      </div>
+
+      <div style="background:#f4f0e8;border-left:2px solid #7a8c6e;padding:1.2rem 1.5rem;font-size:0.88rem;color:#8a857c;line-height:1.8">
+        <span style="display:block;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.4rem">Design Intent</span>
+        Built not to make people AI experts, but to give them a confident, grounded, practical way to think about where we are and what to do about it. Each session is self-contained and facilitator-ready.
+      </div>
+    </div>
+  `,
+  seos: `
+    <div style="padding:3.5rem 3rem">
+      <div style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.8rem">Systems Design · GTM Operations</div>
+      <div style="font-size:2rem;font-weight:300;color:#1e1e1c;letter-spacing:-0.01em;margin-bottom:0.5rem">An <em style="color:#7a8c6e">AI-Native</em> SE Operating System</div>
+      <div style="font-size:0.9rem;color:#8a857c;line-height:1.8;max-width:600px;margin-bottom:3rem">How I designed, built, and governed a connected AI infrastructure that lets a Sales Engineering team produce bespoke, high-quality work at scale — without sacrificing the judgment that makes SE valuable.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:#c8c2b6;margin-bottom:2.5rem">
+        <div style="background:#f4f0e8;padding:1.2rem;text-align:center"><div style="font-size:1.5rem;font-weight:300;color:#2e3d2f">Enterprise SaaS</div><div style="font-size:0.7rem;color:#8a857c;margin-top:0.3rem">Context</div></div>
+        <div style="background:#f4f0e8;padding:1.2rem;text-align:center"><div style="font-size:1.5rem;font-weight:300;color:#2e3d2f">8 SEs</div><div style="font-size:0.7rem;color:#8a857c;margin-top:0.3rem">Team Scope</div></div>
+        <div style="background:#f4f0e8;padding:1.2rem;text-align:center"><div style="font-size:1.5rem;font-weight:300;color:#2e3d2f">~20</div><div style="font-size:0.7rem;color:#8a857c;margin-top:0.3rem">AI Skills Built</div></div>
+        <div style="background:#f4f0e8;padding:1.2rem;text-align:center"><div style="font-size:1.5rem;font-weight:300;color:#2e3d2f">3 Layers</div><div style="font-size:0.7rem;color:#8a857c;margin-top:0.3rem">Architecture</div></div>
+      </div>
+
+      <div style="background:#f4f0e8;border-left:2px solid #7a8c6e;padding:1.2rem 1.5rem;font-size:0.95rem;color:#5c4a35;line-height:1.75;font-style:italic;margin-bottom:2rem">
+        "The goal was a system where every deal gets the quality of your best SE's work — without requiring that SE to spend three hours building it from scratch, and without sacrificing the judgment that makes the work worth doing."
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#c8c2b6;margin-bottom:2.5rem">
+        <div style="background:#faf8f3;padding:1.5rem">
+          <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.8rem">Layer 1</div>
+          <div style="font-size:0.95rem;font-weight:500;color:#1e1e1c;margin-bottom:0.8rem">Knowledge &amp; Workflow Base</div>
+          <div style="font-size:0.8rem;color:#8a857c;line-height:1.7">Structured deal documents, live CRM connections, and templates with defined fields. The single source of truth every downstream output reads from.</div>
+        </div>
+        <div style="background:#faf8f3;padding:1.5rem">
+          <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.8rem">Layer 2</div>
+          <div style="font-size:0.95rem;font-weight:500;color:#1e1e1c;margin-bottom:0.8rem">AI Skill Library</div>
+          <div style="font-size:0.8rem;color:#8a857c;line-height:1.7">~20 purpose-built skills covering one job at one deal stage. Skills chain: output of one becomes input to the next. Human review gate at every step.</div>
+        </div>
+        <div style="background:#faf8f3;padding:1.5rem">
+          <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:0.8rem">Layer 3</div>
+          <div style="font-size:0.95rem;font-weight:500;color:#1e1e1c;margin-bottom:0.8rem">Delivery Layer</div>
+          <div style="font-size:0.8rem;color:#8a857c;line-height:1.7">Branded client-facing deliverables generated from Layer 1 data. SE edits the data; the document re-generates on demand. No design tool, no reformatting.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#c8c2b6;margin-bottom:2.5rem">
+        <div style="background:#faf8f3;padding:1.5rem">
+          <div style="display:inline-block;padding:2px 8px;border:1px solid #b8d0bc;background:#e8f0eb;color:#1a3a2a;font-size:0.65rem;letter-spacing:0.08em;font-weight:600;margin-bottom:0.8rem">AUTO</div>
+          <div style="font-size:0.9rem;font-weight:500;color:#1e1e1c;margin-bottom:0.5rem">System-populated</div>
+          <div style="font-size:0.8rem;color:#8a857c;line-height:1.7">CRM fields, metrics from product analytics, account research, document structure, first-draft competitive framing. The AI is faster and more consistent than a human at this work.</div>
+        </div>
+        <div style="background:#faf8f3;padding:1.5rem">
+          <div style="display:inline-block;padding:2px 8px;border:1px solid #dab8aa;background:#f5ece8;color:#8b3a1a;font-size:0.65rem;letter-spacing:0.08em;font-weight:600;margin-bottom:0.8rem">SE</div>
+          <div style="font-size:0.9rem;font-weight:500;color:#1e1e1c;margin-bottom:0.5rem">Human-authored</div>
+          <div style="font-size:0.8rem;color:#8a857c;line-height:1.7">Discovery diagnoses, the narrative arc, commercial path recommendation, the escalation call when a POC is at risk, and the final review gate before anything reaches a client.</div>
+        </div>
+      </div>
+
+      <div style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a8c6e;font-weight:600;margin-bottom:1.2rem">Design Principles</div>
+      <div style="display:flex;flex-direction:column;gap:1px;background:#c8c2b6">
+        <div style="background:#faf8f3;padding:1rem 1.5rem;display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start">
+          <span style="font-size:1.4rem;font-weight:300;color:#c8c2b6;line-height:1">01</span>
+          <div><div style="font-size:0.85rem;font-weight:500;color:#1e1e1c;margin-bottom:0.3rem">Structure before automation</div><div style="font-size:0.8rem;color:#8a857c;line-height:1.6">Every hour spent on clean document templates before writing a single skill multiplied the quality of every output. Messy inputs produce messy outputs regardless of how good the AI is.</div></div>
+        </div>
+        <div style="background:#faf8f3;padding:1rem 1.5rem;display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start">
+          <span style="font-size:1.4rem;font-weight:300;color:#c8c2b6;line-height:1">02</span>
+          <div><div style="font-size:0.85rem;font-weight:500;color:#1e1e1c;margin-bottom:0.3rem">The governance model is the product</div><div style="font-size:0.8rem;color:#8a857c;line-height:1.6">An SE team won't trust a system that makes invisible decisions. The AUTO/SE discipline was the thing that made the system adoptable — not just good design.</div></div>
+        </div>
+        <div style="background:#faf8f3;padding:1rem 1.5rem;display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start">
+          <span style="font-size:1.4rem;font-weight:300;color:#c8c2b6;line-height:1">03</span>
+          <div><div style="font-size:0.85rem;font-weight:500;color:#1e1e1c;margin-bottom:0.3rem">Every deal deposits into the system</div><div style="font-size:0.8rem;color:#8a857c;line-height:1.6">Discovery insights, objection patterns, what champions said in their own words — all of it feeds back into future deals. The system in year two is materially more capable than year one.</div></div>
+        </div>
+        <div style="background:#faf8f3;padding:1rem 1.5rem;display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start">
+          <span style="font-size:1.4rem;font-weight:300;color:#c8c2b6;line-height:1">04</span>
+          <div><div style="font-size:0.85rem;font-weight:500;color:#1e1e1c;margin-bottom:0.3rem">The SE's job is judgment — protect that</div><div style="font-size:0.8rem;color:#8a857c;line-height:1.6">The system exists to give SEs more time for diagnosis, relationship-reading, and the moments where you set the script aside. Whatever we automate, we cannot automate what makes SE valuable.</div></div>
+        </div>
+      </div>
+    </div>
+  `
+};
+
+function openProjectModal(id) {
+  document.getElementById('projModalContent').innerHTML = projContent[id];
+  document.getElementById('projModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+  document.getElementById('projModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('projModalClose').addEventListener('click', closeProjectModal);
+document.getElementById('projModalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('projModalOverlay')) closeProjectModal();
+});
+</script>
+</body>
+</html>
