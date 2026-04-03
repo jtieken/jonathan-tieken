@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Enablement Series — Jonathan Tieken</title>
+<meta name="description" content="A 9-part framework series for technical and non-technical professionals navigating an AI-accelerated world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment:   #f4f0e8;
+  --parchment2:  #ede8dc;
+  --birch:       #faf8f3;
+  --moss:        #2e3d2f;
+  --moss-light:  #3d5140;
+  --lichen:      #7a8c6e;
+  --bark:        #5c4a35;
+  --stone:       #8a857c;
+  --iron:        #1e1e1c;
+  --smoke:       #c8c2b6;
+  --ember:       #a0622a;
+  --sans: 'Instrument Sans', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--birch);
+  color: var(--iron);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3.5rem;
+  background: rgba(250,248,243,0.92);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(94,74,52,0.1);
+}
+.nav-wordmark {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--iron); text-decoration: none; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 2.8rem; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; color: var(--stone); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--iron); }
+.nav-links a.active { color: var(--moss); }
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background: var(--moss);
+  padding: 9rem 3.5rem 5.5rem;
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; top: -40%; right: -10%;
+  width: 70%; padding-bottom: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,140,110,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-hero-inner {
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 500; color: var(--lichen); text-decoration: none;
+  margin-bottom: 2.5rem; transition: color 0.2s;
+}
+.back-link:hover { color: var(--parchment); }
+.page-hero .section-label {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1.2rem; font-weight: 500;
+}
+.page-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300; line-height: 1.15; letter-spacing: -0.02em;
+  color: var(--parchment); margin-bottom: 1.5rem;
+}
+.page-hero h1 em { font-style: italic; color: var(--lichen); }
+.page-hero-sub {
+  font-size: 1rem; color: rgba(244,240,232,0.6);
+  line-height: 1.8; font-weight: 300; max-width: 520px; margin-bottom: 2.5rem;
+}
+.page-hero-meta {
+  display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap;
+  padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.page-hero-meta-item {
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.page-hero-meta-num {
+  font-size: 1.8rem; font-weight: 300; color: var(--parchment);
+  letter-spacing: -0.02em; line-height: 1;
+}
+.page-hero-meta-label {
+  font-size: 0.68rem; color: rgba(244,240,232,0.45);
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+}
+.page-hero-meta-sep {
+  width: 1px; height: 40px; background: rgba(255,255,255,0.1);
+}
+
+/* ─── SECTION COMMON ─── */
+.section-label {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 1rem; font-weight: 500;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300; line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--iron);
+}
+.section-title em { font-style: italic; }
+
+/* ─── WRITING / SERIES SECTION ─── */
+.series-section {
+  padding: 6rem 3.5rem;
+  background: var(--parchment);
+}
+.series-inner { max-width: 1100px; margin: 0 auto; }
+
+.acts-nav {
+  display: flex; gap: 0; margin: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--smoke);
+}
+.act-tab {
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; color: var(--stone);
+  padding: 0.8rem 1.6rem; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; transition: all 0.2s;
+  background: none; border-top: none; border-left: none; border-right: none;
+  font-family: var(--sans);
+}
+.act-tab:hover { color: var(--iron); }
+.act-tab.active { color: var(--moss); border-bottom-color: var(--moss); }
+
+.articles-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--smoke);
+}
+.card {
+  background: var(--parchment2);
+  padding: 2.2rem 2rem;
+  cursor: pointer;
+  transition: background 0.25s;
+  position: relative; overflow: hidden;
+}
+.card:hover { background: var(--moss); }
+.card:hover .card-num  { color: rgba(244,240,232,0.15); }
+.card:hover .card-act  { color: var(--lichen); }
+.card:hover .card-title { color: var(--parchment); }
+.card:hover .card-blurb { color: rgba(244,240,232,0.55); }
+.card:hover .card-arrow { opacity: 1; color: var(--lichen); }
+.card-num {
+  font-size: 2.4rem; font-weight: 300; color: var(--smoke);
+  line-height: 1; margin-bottom: 1.2rem; letter-spacing: -0.03em;
+  transition: color 0.25s;
+}
+.card-act {
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--lichen); margin-bottom: 0.5rem; font-weight: 500;
+  transition: color 0.25s;
+}
+.card-title {
+  font-size: 0.95rem; font-weight: 500; color: var(--iron);
+  line-height: 1.3; margin-bottom: 0.9rem; transition: color 0.25s;
+}
+.card-blurb {
+  font-size: 0.8rem; color: var(--stone);
+  line-height: 1.65; font-weight: 300; transition: color 0.25s;
+}
+.card-arrow {
+  position: absolute; bottom: 1.6rem; right: 1.8rem;
+  font-size: 0.9rem; color: var(--stone);
+  opacity: 0; transition: opacity 0.25s;
+}
+
+/* ─── CONTACT CTA ─── */
+.series-cta {
+  padding: 5rem 3.5rem;
+  background: var(--birch);
+  border-top: 1px solid var(--smoke);
+}
+.series-cta-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center; gap: 3rem; flex-wrap: wrap;
+}
+.series-cta-text h3 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 300; color: var(--iron); letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
+}
+.series-cta-text h3 em { font-style: italic; color: var(--stone); }
+.series-cta-text p {
+  font-size: 0.9rem; color: var(--stone); line-height: 1.7; max-width: 420px;
+}
+.btn-primary {
+  display: inline-block; padding: 0.9rem 2.2rem;
+  background: var(--iron); color: var(--birch);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  text-decoration: none; transition: background 0.2s; white-space: nowrap;
+}
+.btn-primary:hover { background: var(--moss); }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(20,18,16,0.8); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--birch);
+  max-width: 680px; width: 100%;
+  max-height: 85vh; overflow-y: auto;
+  padding: 3.5rem 3rem;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.35s var(--ease-out);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-thumb { background: var(--smoke); }
+.modal-close {
+  position: absolute; top: 1.5rem; right: 1.8rem;
+  background: none; border: none; cursor: pointer;
+  font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; font-family: var(--sans);
+}
+.modal-num { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lichen); margin-bottom: 0.6rem; font-weight: 500; }
+.modal-title { font-size: 1.8rem; font-weight: 300; color: var(--iron); margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+.modal-act { font-size: 0.72rem; color: var(--stone); margin-bottom: 2rem; font-weight: 300; }
+.modal-claim {
+  font-size: 1rem; font-style: italic; color: var(--bark);
+  line-height: 1.7; border-left: 2px solid var(--lichen);
+  padding: 0.8rem 1.5rem; margin-bottom: 2rem;
+  background: var(--parchment);
+}
+.modal-body { font-size: 0.88rem; color: var(--stone); line-height: 1.85; font-weight: 300; }
+.modal-body p { margin-bottom: 1rem; }
+.modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--smoke); margin: 1.8rem 0; }
+.modal-stat { background: var(--parchment); padding: 1.2rem 1rem; text-align: center; }
+.modal-stat-num { font-size: 1.8rem; font-weight: 300; color: var(--moss); line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+.modal-stat-label { font-size: 0.72rem; color: var(--stone); line-height: 1.5; }
+.modal-reframe { background: var(--parchment); border-left: 2px solid var(--lichen); padding: 1rem 1.2rem; margin-bottom: 1rem; font-size: 0.88rem; color: var(--stone); line-height: 1.8; }
+.modal-reframe-label { display: block; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lichen); font-weight: 600; margin-bottom: 0.4rem; }
+.modal-opener { background: var(--parchment2); border: 1px solid var(--smoke); padding: 1rem 1.2rem; font-size: 0.85rem; color: var(--stone); line-height: 1.75; font-style: italic; }
+.modal-opener-label { display: block; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bark); font-weight: 600; margin-bottom: 0.4rem; font-style: normal; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 1.5rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--iron);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-name {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244,240,232,0.3); font-weight: 500;
+}
+.footer-loc { font-size: 0.72rem; color: rgba(244,240,232,0.2); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.reveal {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+}
+.reveal.animate-ready { opacity: 0; transform: translateY(20px); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 1.2rem 1.8rem; }
+  .page-hero { padding: 8rem 1.8rem 4rem; }
+  .series-section { padding: 5rem 1.8rem; }
+  .series-cta { padding: 4rem 1.8rem; }
+  .series-cta-inner { flex-direction: column; }
+  .acts-nav { overflow-x: auto; }
+  footer { padding: 1.5rem 1.8rem; }
+}
+@media (max-width: 600px) {
+  .articles-grid { grid-template-columns: 1fr; }
+  .modal { padding: 2.5rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-hero-meta { gap: 1.5rem; }
+  .page-hero-meta-sep { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-wordmark">Jonathan Tieken</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects" class="active">Projects</a></li>
+    <li><a href="index.html#testimonials">Testimonials</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <a href="index.html#projects" class="back-link">← Back to Projects</a>
+    <div class="section-label">Thought Leadership · Enablement</div>
+    <h1>AI Enablement Series —<br>Frameworks for an <em>AI-accelerated</em> world</h1>
+    <p class="page-hero-sub">A 9-part series for technical and non-technical professionals alike — not to make people AI experts, but to give them a confident, grounded, practical way to think about where we are and what to do about it. Built in three acts.</p>
+    <div class="page-hero-meta">
+      <div class="page-hero-meta-item">
+        <div class="page-hero-meta-num">9</div>
+        <div class="page-hero-meta-label">Sessions</div>
+      </div>
+      <div class="page-hero-meta-sep"></div>
+      <div class="page-hero-meta-item">
+        <div class="page-hero-meta-num">3</div>
+        <div class="page-hero-meta-label">Acts</div>
+      </div>
+      <div class="page-hero-meta-sep"></div>
+      <div class="page-hero-meta-item">
+        <div class="page-hero-meta-num">100s</div>
+        <div class="page-hero-meta-label">Professionals Reached</div>
+      </div>
+      <div class="page-hero-meta-sep"></div>
+      <div class="page-hero-meta-item">
+        <div class="page-hero-meta-num">Field</div>
+        <div class="page-hero-meta-label">Tested</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERIES GRID -->
+<section class="series-section reveal">
+  <div class="series-inner">
+    <div class="acts-nav">
+      <button class="act-tab active" data-act="all">All</button>
+      <button class="act-tab" data-act="0">Series Opener</button>
+      <button class="act-tab" data-act="1">Act I — Identity Reset</button>
+      <button class="act-tab" data-act="2">Act II — Operating Principles</button>
+      <button class="act-tab" data-act="3">Act III — The Forward View</button>
+    </div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="series-cta reveal">
+  <div class="series-cta-inner">
+    <div class="series-cta-text">
+      <h3>Bring this series to <em>your team</em></h3>
+      <p>I deliver these sessions in-person and virtually — tailored to your team's level, function, and goals. Whether it's one session or the full nine, the goal is lasting behavior change.</p>
+    </div>
+    <a href="index.html#contact" class="btn-primary">Get in Touch →</a>
+  </div>
+</section>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">Close ✕</button>
+    <div id="modalInner"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Jonathan Tieken</span>
+  <span class="footer-loc">Weston, Connecticut</span>
+</footer>
+
+<script>
+const articles = [
+  { num:"01", act:"Series Opener", actGroup:"0",
+    title:"Proficiency is Relatively Impossible",
+    blurb:"The idea of 'knowing AI' is not a destination you can reach. The right posture isn't expertise — it's proactive curiosity combined with a willingness to stay in motion.",
+    claim:"\"The idea of 'knowing AI' is not a destination you can reach. The right posture isn't expertise — it's proactive curiosity combined with a willingness to stay in motion.\"",
+    stats:[{n:"300+",l:"Large language models available — and growing weekly"},{n:"90%",l:"of workers report feeling overwhelmed by the number of software tools they use"},{n:"54%",l:"of employees feel they are falling behind their peers in AI — even while using it daily"}],
+    reframe:"Proficiency is the wrong goal. What you want is <em>direction</em> — a heading toward engagement, experimentation, and comfort with not-knowing. The people winning right now aren't the most technically fluent. They're the most curious and the least afraid of feeling like a beginner.",
+    opener:"Show of hands: \"How many of you feel genuinely confident about where AI is going?\" Then: \"How many feel a little behind?\" The second hand goes up more. That's the entry point." },
+
+  { num:"02", act:"Act I — Identity Reset", actGroup:"1",
+    title:"EQ Over IQ",
+    blurb:"AI has automated the IQ arms race. What remains — and accelerates in value — is everything AI cannot replicate: empathy, trust, connection, judgment.",
+    claim:"\"AI has automated the IQ arms race. What remains — and accelerates in value — is everything AI cannot replicate: empathy, trust, connection, judgment. The skills that once felt soft are now the hardest differentiators.\"",
+    stats:[{n:"80%",l:"of consumers prefer interacting with people over machines when it matters"},{n:"85%",l:"sales growth advantage for companies that score high on emotional connection (Deloitte)"},{n:"71%",l:"of employers now rank EQ among their top desired skills — above technical ability"}],
+    reframe:"In a world where your AI handles the analysis, your value is in knowing what questions to ask, who to call, and how to make someone feel heard. People still want to buy from people — and that isn't changing.",
+    opener:"\"Think about the best colleague you've ever worked with. What made them great?\" The answers almost never lead with technical knowledge. That's the lesson." },
+
+  { num:"03", act:"Act I — Identity Reset", actGroup:"1",
+    title:"Becoming a Team Lead",
+    blurb:"Nearly everyone in a professional role will be responsible for managing agents — directing their work, checking their output, and knowing when to step in.",
+    claim:"\"Nearly everyone in a professional role will be responsible for managing agents — directing their work, checking their output, adjusting their behavior, and knowing when to step in. Managing agents is the new management skill.\"",
+    stats:[{n:"79%",l:"of organizations report some level of agentic AI adoption — right now, today"},{n:"96%",l:"are planning to expand their use of AI agents in 2025–2026"},{n:"46%",l:"CAGR for the AI agent market through 2030 — the fastest growing category in enterprise tech"}],
+    reframe:"Managing agents is not a technical skill — it's a leadership skill. You don't need to understand how they work. You need to know how to direct, calibrate, and review them. The people who thrive next aren't the ones who understand the model. They're the ones who know how to run the team.",
+    opener:"\"Raise your hand if you've ever managed someone who worked faster than you could review their output.\" That's agent management. The question isn't whether you'll do it — it's whether you'll be good at it." },
+
+  { num:"04", act:"Act I — Identity Reset", actGroup:"1",
+    title:"Architects, Not Engineers",
+    blurb:"You don't need to understand how to build the thing. You need to understand what to build, why it matters, and whether the output is trustworthy.",
+    claim:"\"You don't need to understand how to build the thing. You need to understand what to build, why it matters, and whether the output is trustworthy. That's the architect's mindset — and it's the most valuable posture you can take right now.\"",
+    stats:[{n:"44%",l:"of all work tasks could be augmented or automated by AI within the next 5 years (McKinsey)"},{n:"92%",l:"of executives say they expect to use more AI-generated content — but only 10% trust it without human review"},{n:"3×",l:"more productive: teams that use AI to prototype ideas before building them (MIT, 2024)"}],
+    reframe:"The engineer asks \"how do I build this?\" The architect asks \"what should exist here, and why?\" AI is an extraordinary engineer. It is not yet a trustworthy architect. That gap is your career.",
+    opener:"\"What does it mean to add value in a world where AI can do the work?\" The answer starts with thinking clearly about what the work is actually for." },
+
+  { num:"05", act:"Act II — Operating Principles", actGroup:"2",
+    title:"The Third Mind",
+    blurb:"When a human and an AI work together with genuine intention, the output is not the sum of two inputs — it's something neither could have produced independently.",
+    claim:"\"When a human and an AI work together with genuine intention, the output is not the sum of two inputs — it's something neither could have produced independently. That emergent quality is the third mind.\"",
+    stats:[{n:"106",l:"studies confirm human-AI collaboration outperforms either working alone"},{n:"3×",l:"accuracy improvement when humans review and refine AI output vs. accepting it directly"},{n:"9.2%",l:"AI hallucination rate in professional contexts — invisible without human review"}],
+    reframe:"Human review is not a safety net — it's the mechanism through which the third mind forms. When you skip review, you're not saving time. You're opting out of the collaboration entirely.",
+    opener:"\"Has anyone here ever had an AI give you a confident answer that was completely wrong?\" Every hand goes up. That's where you start." },
+
+  { num:"06", act:"Act II — Operating Principles", actGroup:"2",
+    title:"It's Not About How You Prompt",
+    blurb:"Prompt engineering is the least interesting skill in the AI era. What actually matters is the relationship you build with your tools over time.",
+    claim:"\"Prompt engineering is the least interesting skill in the AI era. What actually matters is the relationship you build with your tools over time — the context, the history, the intentional patterns of engagement.\"",
+    stats:[{n:"78%",l:"of AI power users spend more time reviewing and refining output than writing the initial prompt"},{n:"4×",l:"better output quality when users provide rich context vs. a single-shot instruction"},{n:"15 min",l:"the recommended weekly agent check-in — treat it like a 1:1 with a direct report"}],
+    reframe:"Stop optimizing individual prompts. Start investing in ongoing context, consistent check-ins, and longer-horizon tasks. Your AI doesn't need a perfect question — it needs a good working relationship.",
+    opener:"How many of you have gotten a response from AI that felt completely off? Now — when that happened, how many of you tried rewriting the prompt? Here's the thing: the prompt wasn't the problem." },
+
+  { num:"07", act:"Act II — Operating Principles", actGroup:"2",
+    title:"Context Is King",
+    blurb:"The quality of what AI gives you is determined almost entirely by the quality of what you give it. Prompt engineering is the wrong obsession. Context architecture is the right one.",
+    claim:"\"The quality of what AI gives you is determined almost entirely by the quality of what you give it. Every gap in your context is a gap in your output — invisible until it matters most. Prompt engineering is the wrong obsession. Context architecture is the right one.\"",
+    stats:[{n:"4×",l:"output quality improvement when users provide structured context vs. open-ended prompts"},{n:"83%",l:"of AI rework traces back to context gaps — not prompt syntax errors"},{n:"5 min",l:"context investment that eliminates an average of 40 minutes of revision cycles per deliverable"}],
+    reframe:"Most people treat context as setup. It's actually architecture. When you give an AI model rich, structured context — your role, your audience, your constraints, your preferences — you're not warming it up. You're configuring a collaborator. <em>Context is not the thing you do before the real work. Context is the real work.</em>",
+    opener:"\"How many of you have gotten a response from AI that felt completely off?\" The AI didn't know enough about you to help you well. That's a context problem, not a prompt problem." },
+
+  { num:"08", act:"Act III — The Forward View", actGroup:"3",
+    title:"Beyond Docs and Decks",
+    blurb:"The document era is ending. Not because documents don't matter — but because documents are becoming the output of something richer, more dynamic, and far more connected to the actual work.",
+    claim:"\"The document era is ending. Not because documents don't matter — but because documents are becoming the output of something richer, more dynamic, and far more connected to the actual work.\"",
+    stats:[{n:"68%",l:"of knowledge workers say they spend more time reformatting and moving data than actually analyzing it"},{n:"$2.5T",l:"estimated annual value lost globally to unstructured, inaccessible organizational knowledge"},{n:"10×",l:"faster insight generation when AI can access structured data vs. reformatted documents"}],
+    reframe:"The deck is not the destination — it's the artifact of a thinking process. As AI increasingly handles the artifact, your value moves upstream to the thinking, the structure, and the decisions that shape what gets produced.",
+    opener:"\"What would it mean if every insight your team produced was instantly available to every AI that needed it?\" That question unlocks a completely different way of thinking about knowledge work." },
+
+  { num:"09", act:"Act III — The Forward View", actGroup:"3",
+    title:"Productive Play is Paramount",
+    blurb:"The teams advancing fastest in AI are not the ones with the biggest budgets or the most technical talent. They are the ones that gave themselves permission to experiment.",
+    claim:"\"The teams advancing fastest in AI are not the ones with the biggest budgets or the most technical talent. They are the ones that gave themselves permission to experiment, to be curious, to play — and treated that play as work.\"",
+    stats:[{n:"40%",l:"more breakthrough ideas generated by teams that dedicate structured time to low-stakes AI experimentation"},{n:"72%",l:"of top AI users in organizations are self-taught — they learned by playing, not by training"},{n:"3 hrs",l:"average weekly time the most AI-fluent professionals spend in unstructured exploration of tools"}],
+    reframe:"The organizations that build serious AI capability are the ones that made it safe to play. That means protected time, low-stakes environments, and the explicit message that <em>exploration is not a distraction from the work — it is the work.</em>",
+    opener:"\"What's something you've always wanted to try with AI but didn't have 'permission' to?\" Almost everyone has an answer. The session is about giving them that permission — officially." }
+];
+
+function renderCards(filter) {
+  const grid = document.getElementById('articlesGrid');
+  grid.innerHTML = '';
+  articles.filter(a => filter === 'all' || a.actGroup === filter).forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-num">${a.num}</div>
+      <div class="card-act">${a.act}</div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-blurb">${a.blurb}</div>
+      <div class="card-arrow">→</div>
+    `;
+    card.addEventListener('click', () => openModal(a));
+    grid.appendChild(card);
+  });
+}
+
+function openModal(a) {
+  const inner = document.getElementById('modalInner');
+  const statsHtml = a.stats ? `<div class="modal-stats">${a.stats.map(s => `<div class="modal-stat"><div class="modal-stat-num">${s.n}</div><div class="modal-stat-label">${s.l}</div></div>`).join('')}</div>` : '';
+  const reframeHtml = a.reframe ? `<div class="modal-reframe"><span class="modal-reframe-label">The Reframe</span>${a.reframe}</div>` : '';
+  const openerHtml = a.opener ? `<div class="modal-opener"><span class="modal-opener-label">Session Opener</span>${a.opener}</div>` : '';
+  inner.innerHTML = `
+    <div class="modal-num">${a.num} — ${a.act}</div>
+    <div class="modal-title">${a.title}</div>
+    <div class="modal-claim">${a.claim}</div>
+    ${statsHtml}
+    ${reframeHtml}
+    ${openerHtml}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.querySelectorAll('.act-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.act-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderCards(tab.dataset.act);
+  });
+});
+
+renderCards('all');
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.reveal').forEach(el => {
+  el.classList.add('animate-ready');
+  io.observe(el);
+});
+</script>
+</body>
+</html>
